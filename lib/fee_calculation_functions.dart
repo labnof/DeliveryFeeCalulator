@@ -46,10 +46,11 @@ class FeeCalFunctions {
 
   // Function adds surcharge to cart value if necessary
   static double cartValueSurcharge(double cartValue) {
+    double surCharge = 0.0;
     if (cartValue < 10) {
-      return 10;
+      return 10 - cartValue;
     }
-    return cartValue;
+    return surCharge;
   }
 
   // Function calculates the distance fee

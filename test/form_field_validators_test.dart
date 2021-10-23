@@ -118,5 +118,25 @@ void main() {
       var result = FfValidator.timeTextValidator('10:12');
       expect(result, null);
     });
+
+    group('Regex functions test', () {
+      test('Wrong date format', () {
+        bool result = FfValidator.isDateRegex('2021/01/10');
+        expect(result, false);
+      });
+      test('Right date format', () {
+        bool result = FfValidator.isDateRegex('2021-01-10');
+        expect(result, true);
+      });
+
+      test('Wrong time format', () {
+        bool result = FfValidator.isTimeRegex('20.23');
+        expect(result, false);
+      });
+      test('Right time format', () {
+        bool result = FfValidator.isTimeRegex('20:23');
+        expect(result, true);
+      });
+    });
   });
 }

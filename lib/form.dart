@@ -149,15 +149,6 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
                           total = FeeCalFunctions.totalDeliveryFee(
                               cartValue, distance, itemCount, date, time);
                           _deliveryFeeTotal = total;
-                          //Clear the Text fields
-                          _catValueController.clear();
-                          _deliveryDistanceController.clear();
-                          _itemCountController.clear();
-                          _dateController.clear();
-                         _timeController.clear();
-
-
-
 
                        });
 

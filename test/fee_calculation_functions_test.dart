@@ -18,15 +18,17 @@ void main() {
   });
 
   group('Cart surcharge function test', () {
-    test('Should return 10 when cart value is less than 10', () {
-      num fee = FeeCalFunctions.cartValueSurcharge(5);
-      expect(fee, 10);
+    test('Values less than 10', () {
+      double cartValue = 5;
+      double expectedOutPut = 10 - cartValue;
+      double fee = FeeCalFunctions.cartValueSurcharge(cartValue);
+      expect(fee, expectedOutPut);
     });
 
-    test('Should return 10 when cart value is less than 10', () {
-      double cartValue = 12;
+    test('Values >= 10', () {
+      double cartValue = 10;
       double fee = FeeCalFunctions.cartValueSurcharge(cartValue);
-      expect(fee, cartValue);
+      expect(fee, 0);
     });
 
     group('Distance fee function test', () {

@@ -1,28 +1,11 @@
 // Call for the TextFormField validators.
-class FfValidator{
-
-// generic validator for TextFormField
-  static String? genericTextValidator(value) {
-    if (value == null || value.isEmpty ) {
-      return 'Please enter some value';
-    }
-    return null;
-  }
+class FfValidator {
   // integer validator for TextFormField
-
-  static bool isNumericRegex(String string) {
-    final numericRegex = RegExp(r'^-?(([0-9]*)|(([0-9]*)\.([0-9]*)))$');
-
-    return numericRegex.hasMatch(string);
-  }
 
   static String? numTextValidator(value) {
     try {
       num cartValue = num.parse(value);
-      if (value == null ||
-          value.isEmpty ||
-          !isNumericRegex(value) ||
-          cartValue == 0) {
+      if (value == null || value.isEmpty || cartValue == 0) {
         return 'Please enter a number';
       }
       return null;
@@ -35,10 +18,7 @@ class FfValidator{
   static String? itemTextValidator(value) {
     try {
       int itemsCount = int.parse(value);
-      if (value == null ||
-          value.isEmpty ||
-          !isNumericRegex(value) ||
-          itemsCount == 0) {
+      if (value == null || value.isEmpty || itemsCount == 0) {
         return 'Please enter number of items';
       }
       return null;
@@ -54,6 +34,7 @@ class FfValidator{
 
     return dateRegex.hasMatch(string);
   }
+
   static String? dateTextValidator(value) {
     if (value == null || value.isEmpty || !isDateRegex(value)) {
       return 'Please enter date e,g 2021-20-01';
@@ -63,15 +44,14 @@ class FfValidator{
 
   //  Time validator for TextFormField
   static bool isTimeRegex(String string) {
-    final timeRegex =
-    RegExp(r'^([0-1]?[0-9]|2[0-3])\:[0-5][0-9]$');
+    final timeRegex = RegExp(r'^([0-1]?[0-9]|2[0-3])\:[0-5][0-9]$');
     return timeRegex.hasMatch(string);
   }
+
   static String? timeTextValidator(value) {
-    if (value == null || value.isEmpty || !isTimeRegex(value) ){
+    if (value == null || value.isEmpty || !isTimeRegex(value)) {
       return 'Please enter time e,g 17:00';
     }
     return null;
   }
-
 }
