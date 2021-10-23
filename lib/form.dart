@@ -49,7 +49,6 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
               child: child!);
         });
 
-
     if (pickedTime != null && pickedTime != currentTime) {
       setState(() { currentTime = pickedTime;
       _timeController.text = currentTime.format(context);});
@@ -81,7 +80,7 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
           children: <Widget>[
             TextFormField(
               controller: _catValueController,
-              validator: FfValidator.intTextValidator,
+              validator: FfValidator.numTextValidator,
               decoration: const InputDecoration(
                 icon: Icon(Icons.shopping_cart),
                 hintText: 'Enter cart value in €',
@@ -90,7 +89,7 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
             ),
             TextFormField(
               controller: _deliveryDistanceController,
-              validator: FfValidator.intTextValidator,
+              validator: FfValidator.numTextValidator,
               decoration: const InputDecoration(
                 icon: Icon(Icons.social_distance),
                 hintText: 'Enter delivery distance in meters',
@@ -99,7 +98,7 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
             ),
             TextFormField(
               controller: _itemCountController,
-              validator: FfValidator.intTextValidator,
+              validator: FfValidator.itemTextValidator,
               decoration: const InputDecoration(
                 icon: Icon(Icons.fastfood),
                 hintText: 'Enter number of items',

@@ -8,32 +8,44 @@ class FfValidator{
     }
     return null;
   }
+
   // integer validator for TextFormField
 
   static bool isNumericRegex(String string) {
-    final numericRegex =
-    RegExp(r'^-?(([0-9]*)|(([0-9]*)\.([0-9]*)))$');
+    final numericRegex = RegExp(r'^-?(([0-9]*)|(([0-9]*)\.([0-9]*)))$');
 
     return numericRegex.hasMatch(string);
   }
-  static String? intTextValidator(value) {
-    if (value == null || value.isEmpty || !isNumericRegex(value) ) {
-      return 'Please enter value in correct form';
+
+  static String? numTextValidator(value) {
+    if (value == null || value.isEmpty || !isNumericRegex(value)) {
+      return 'Please enter a number';
     }
     return null;
   }
-  // integer validator for TextFormField
 
+  // item count validator for TextFormField
+  static String? itemTextValidator(value) {
+    num itemsCount = num.parse(value); // Todo write exception.
+    if (value == null ||
+        value.isEmpty ||
+        !isNumericRegex(value) ||
+        itemsCount == 0.0) {
+      return 'Please enter number items';
+    }
+    return null;
+  }
 
   //  date validator for TextFormField
   static bool isDateRegex(String string) {
     final dateRegex =
-    RegExp(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$');
+        RegExp(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$');
 
     return dateRegex.hasMatch(string);
   }
+
   static String? dateTextValidator(value) {
-    if (value == null || value.isEmpty || !isDateRegex(value) ){
+    if (value == null || value.isEmpty || !isDateRegex(value)) {
       return 'Please enter date e,g 2021-20-01';
     }
     return null;

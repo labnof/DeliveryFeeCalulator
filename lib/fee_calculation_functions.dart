@@ -1,14 +1,15 @@
 // Class for the Fee calculation functions.
-import 'package:flutter/material.dart';
-
 class FeeCalFunctions {
-  // Function adds surcharge to cart value if necessary
+  // Function calculates the total delivery cost
   static double totalDeliveryFee(double cartValue, double distance,
-      double itemCount,
-      String date, String time) {
+      double itemCount, String date, String time) {
     double totalDeliveryFee = 0.0;
     double maxDeliveryFee = 15.0;
-
+    // return 0 if the Cart Value 0 and there is not item to deliver.
+    if (cartValue == 0.0 && itemCount == 0.0) {
+      return 0.0;
+    }
+    // Calculate for CartValue < 100 otherwise returns 0
     if (cartValue < 100) {
       totalDeliveryFee = cartValueSurcharge(cartValue) +
           distanceFee(distance) +
@@ -29,17 +30,18 @@ class FeeCalFunctions {
     }
     return totalDeliveryFee;
   }
+
 // checks if it is friday rush
-  static bool isFridayRush (String date, String time){
-    num rushStartTime = 15.0 ;
+  static bool isFridayRush(String date, String time) {
+    num rushStartTime = 15.0;
     num rushEndTime = 17.0;
 
-    num givenTime = num.parse("${time.substring(0,2)}.${time.substring(3,5)}");
+    num givenTime =
+        num.parse("${time.substring(0, 2)}.${time.substring(3, 5)}");
     bool isFriday = (DateTime.parse(date).weekday == DateTime.friday);
-    bool isRushHr =  givenTime >= rushStartTime && givenTime <= rushEndTime ;
+    bool isRushHr = givenTime >= rushStartTime && givenTime <= rushEndTime;
 
-    return isFriday &&  isRushHr;
-
+    return isFriday && isRushHr;
   }
 
   // Function adds surcharge to cart value if necessary
@@ -50,7 +52,7 @@ class FeeCalFunctions {
     return cartValue;
   }
 
-  // Function calculates the delivery fee
+  // Function calculates the distance fee
   static double distanceFee(double distance) {
     double baseFee = 2;
     num addedFee = 0;
@@ -69,7 +71,7 @@ class FeeCalFunctions {
     return baseFee + addedFee;
   }
 
-  // Function calculates surcharge for food items of 5
+  // Function calculates surcharge for food items over 4
   static double foodCountSurcharge(double itemCount) {
     double surcharge = 0;
     double additionalCharge = 0.50;
