@@ -138,20 +138,22 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
                       if (_formKey.currentState!.validate()) {
 
                        setState(() {
-                         double cartValue = double.parse(_catValueController.text);
-                         double distance = double.parse(_deliveryDistanceController.text);
-                         double itemCount = double.parse(_itemCountController.text);
-                         String date = _dateController.text;
-                         String time = _timeController.text;
-                         double total;
-                         total = FeeCalFunctions.totalDeliveryFee(
-                             cartValue, distance, itemCount, date, time);
-                         _deliveryFeeTotal = total;
+                         double cartValue =
+                              double.parse(_catValueController.text);
+                          double distance =
+                              double.parse(_deliveryDistanceController.text);
+                          int itemCount = int.parse(_itemCountController.text);
+                          String date = _dateController.text;
+                          String time = _timeController.text;
+                          double total;
+                          total = FeeCalFunctions.totalDeliveryFee(
+                              cartValue, distance, itemCount, date, time);
+                          _deliveryFeeTotal = total;
                           //Clear the Text fields
-                         _catValueController.clear();
-                         _deliveryDistanceController.clear();
-                         _itemCountController.clear();
-                         _dateController.clear();
+                          _catValueController.clear();
+                          _deliveryDistanceController.clear();
+                          _itemCountController.clear();
+                          _dateController.clear();
                          _timeController.clear();
 
 

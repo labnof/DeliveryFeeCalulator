@@ -8,7 +8,6 @@ class FfValidator{
     }
     return null;
   }
-
   // integer validator for TextFormField
 
   static bool isNumericRegex(String string) {
@@ -18,22 +17,34 @@ class FfValidator{
   }
 
   static String? numTextValidator(value) {
-    if (value == null || value.isEmpty || !isNumericRegex(value)) {
+    try {
+      num cartValue = num.parse(value);
+      if (value == null ||
+          value.isEmpty ||
+          !isNumericRegex(value) ||
+          cartValue == 0) {
+        return 'Please enter a number';
+      }
+      return null;
+    } catch (e) {
       return 'Please enter a number';
     }
-    return null;
   }
 
   // item count validator for TextFormField
   static String? itemTextValidator(value) {
-    num itemsCount = num.parse(value); // Todo write exception.
-    if (value == null ||
-        value.isEmpty ||
-        !isNumericRegex(value) ||
-        itemsCount == 0.0) {
-      return 'Please enter number items';
+    try {
+      int itemsCount = int.parse(value);
+      if (value == null ||
+          value.isEmpty ||
+          !isNumericRegex(value) ||
+          itemsCount == 0) {
+        return 'Please enter number of items';
+      }
+      return null;
+    } catch (e) {
+      return 'Please enter number of items';
     }
-    return null;
   }
 
   //  date validator for TextFormField
@@ -43,7 +54,6 @@ class FfValidator{
 
     return dateRegex.hasMatch(string);
   }
-
   static String? dateTextValidator(value) {
     if (value == null || value.isEmpty || !isDateRegex(value)) {
       return 'Please enter date e,g 2021-20-01';

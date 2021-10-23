@@ -2,7 +2,7 @@
 class FeeCalFunctions {
   // Function calculates the total delivery cost
   static double totalDeliveryFee(double cartValue, double distance,
-      double itemCount, String date, String time) {
+      int itemCount, String date, String time) {
     double totalDeliveryFee = 0.0;
     double maxDeliveryFee = 15.0;
     // return 0 if the Cart Value 0 and there is not item to deliver.
@@ -72,7 +72,7 @@ class FeeCalFunctions {
   }
 
   // Function calculates surcharge for food items over 4
-  static double foodCountSurcharge(double itemCount) {
+  static double foodCountSurcharge(int itemCount) {
     double surcharge = 0;
     double additionalCharge = 0.50;
     if (itemCount > 4) {

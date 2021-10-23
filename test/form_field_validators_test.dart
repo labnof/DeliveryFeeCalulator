@@ -3,7 +3,7 @@ import 'package:wolt/form_field_validators.dart';
 
 void main() {
   String numTffError = 'Please enter a number';
-  String itemTffError = 'Please enter number items';
+  String itemTffError = 'Please enter number of items';
   String dateTffError = 'Please enter date e,g 2021-20-01';
   String timeTffError = 'Please enter time e,g 17:00';
 
