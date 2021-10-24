@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'form_field_validators.dart';
 import 'fee_calculation_functions.dart';
+
 // Contains mainly the form for the fee calculation.
 class DeliveryFeeForm extends StatefulWidget {
   const DeliveryFeeForm({Key? key}) : super(key: key);
@@ -15,6 +16,8 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
   //used to validate the form.
   final _formKey = GlobalKey<FormState>();
   double _deliveryFeeTotal = 0.0;
+
+  // the TextEditingControllers are use to access the TextFormField values
   final TextEditingController _catValueController = TextEditingController();
   final TextEditingController _deliveryDistanceController =
       TextEditingController();
@@ -24,6 +27,7 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
 
   //Date picker
   DateTime currentDate = DateTime.now();
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
         context: context,

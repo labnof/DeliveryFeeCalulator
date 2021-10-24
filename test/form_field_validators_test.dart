@@ -12,7 +12,10 @@ void main() {
       var result = FfValidator.numTextValidator('');
       expect(result, numTffError);
     });
-
+    test('Negative Input', () {
+      var result = FfValidator.numTextValidator('-10');
+      expect(result, numTffError);
+    });
     test('Alphabet Input', () {
       var result = FfValidator.numTextValidator('One');
       expect(result, numTffError);
@@ -32,6 +35,11 @@ void main() {
   group('Items count  TextFormField validator test', () {
     test('Empty Input', () {
       var result = FfValidator.itemTextValidator('');
+      expect(result, itemTffError);
+    });
+
+    test('Negative Input', () {
+      var result = FfValidator.itemTextValidator('-5');
       expect(result, itemTffError);
     });
 

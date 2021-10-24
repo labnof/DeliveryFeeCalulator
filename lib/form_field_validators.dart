@@ -1,11 +1,9 @@
-// Call for the TextFormField validators.
+//  TextFormField validators class.
 class FfValidator {
-  // integer validator for TextFormField
-
   static String? numTextValidator(value) {
     try {
       num cartValue = num.parse(value);
-      if (value == null || value.isEmpty || cartValue == 0) {
+      if (value == null || value.isEmpty || cartValue.isNegative) {
         return 'Please enter a number';
       }
       return null;
@@ -18,7 +16,10 @@ class FfValidator {
   static String? itemTextValidator(value) {
     try {
       int itemsCount = int.parse(value);
-      if (value == null || value.isEmpty || itemsCount == 0) {
+      if (value == null ||
+          value.isEmpty ||
+          itemsCount == 0 ||
+          itemsCount.isNegative) {
         return 'Please enter number of items';
       }
       return null;

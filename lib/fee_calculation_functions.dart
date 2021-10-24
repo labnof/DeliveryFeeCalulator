@@ -5,7 +5,7 @@ class FeeCalFunctions {
       int itemCount, String date, String time) {
     double totalDeliveryFee = 0.0;
     double maxDeliveryFee = 15.0;
-    // return 0 if the Cart Value 0 and there is not item to deliver.
+    // return 0 if the Cart Value 0 and there is no item to deliver.
     if (cartValue == 0.0 && itemCount == 0.0) {
       return 0.0;
     }
@@ -13,7 +13,7 @@ class FeeCalFunctions {
     if (cartValue < 100) {
       totalDeliveryFee = cartValueSurcharge(cartValue) +
           distanceFee(distance) +
-          foodCountSurcharge(itemCount);
+          itemsCountSurcharge(itemCount);
       bool fridayRush = isFridayRush(date, time);
 
       if (totalDeliveryFee > maxDeliveryFee) {
@@ -46,11 +46,10 @@ class FeeCalFunctions {
 
   // Function adds surcharge to cart value if necessary
   static double cartValueSurcharge(double cartValue) {
-    double surCharge = 0.0;
     if (cartValue < 10) {
       return 10 - cartValue;
     }
-    return surCharge;
+    return 0.0;
   }
 
   // Function calculates the distance fee
@@ -73,11 +72,11 @@ class FeeCalFunctions {
   }
 
   // Function calculates surcharge for food items over 4
-  static double foodCountSurcharge(int itemCount) {
+  static double itemsCountSurcharge(int itemsCount) {
     double surcharge = 0;
     double additionalCharge = 0.50;
-    if (itemCount > 4) {
-      surcharge = (itemCount - 4) * additionalCharge;
+    if (itemsCount > 4) {
+      surcharge = (itemsCount - 4) * additionalCharge;
       return surcharge;
     }
     return surcharge;
