@@ -35,12 +35,16 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
         firstDate: DateTime(2015),
         lastDate: DateTime(2050));
     if (pickedDate != null && pickedDate != currentDate) {
-      setState(() { currentDate = pickedDate;
-      _dateController.text = DateFormat('yyyy-MM-dd').format(currentDate);});
+      setState(() {
+        currentDate = pickedDate;
+        _dateController.text = DateFormat('yyyy-MM-dd').format(currentDate);
+      });
     }
   }
+
   //Time picker
   TimeOfDay currentTime = TimeOfDay.now();
+
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? pickedTime = await showTimePicker(
         context: context,
@@ -48,21 +52,25 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
         builder: (context, child) {
           return MediaQuery(
               data: MediaQuery.of(context).copyWith(
-                // Using 24-Hour format
+                  // Using 24-Hour format
                   alwaysUse24HourFormat: true),
               child: child!);
         });
 
     if (pickedTime != null && pickedTime != currentTime) {
-      setState(() { currentTime = pickedTime;
-      _timeController.text = currentTime.format(context);});
+      setState(() {
+        currentTime = pickedTime;
+        _timeController.text = '${currentTime.hour}:${currentTime.minute}';
+        // The  code below does not work in emulator, but works on s10 mini,
+        // Android 11 or 12.
+        //_timeController.text = currentTime.format(context);});
+
+      });
     }
   }
 
-
-
   @override
-  void dispose(){
+  void dispose() {
     _catValueController.dispose();
     _deliveryDistanceController.dispose();
     _itemCountController.dispose();
@@ -140,9 +148,8 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
                       // Validate will return true if the form is valid, or false if
                       // the form is invalid.
                       if (_formKey.currentState!.validate()) {
-
-                       setState(() {
-                         double cartValue =
+                        setState(() {
+                          double cartValue =
                               double.parse(_catValueController.text);
                           double distance =
                               double.parse(_deliveryDistanceController.text);
@@ -153,8 +160,7 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
                           total = FeeCalFunctions.totalDeliveryFee(
                               cartValue, distance, itemCount, date, time);
                           _deliveryFeeTotal = total;
-
-                       });
+                        });
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Processing Data')),
@@ -167,12 +173,11 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
               ],
             ),
             const SizedBox(height: 64),
-              Text(
-                ' Delivery price: ${double.parse((_deliveryFeeTotal).toStringAsFixed(2))}€',
-                textAlign: TextAlign.center,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-              ),
+            Text(
+              ' Delivery price: ${double.parse((_deliveryFeeTotal).toStringAsFixed(2))}€',
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+            ),
           ],
         ),
       ),
