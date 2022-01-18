@@ -34,7 +34,7 @@ class FeeCalFunctions {
 // checks if it is friday rush
   static bool isFridayRush(String date, String time) {
     num rushStartTime = 15.0;
-    num rushEndTime = 17.0;
+    num rushEndTime = 19.0;
 
     num givenTime =
         num.parse("${time.substring(0, 2)}.${time.substring(3, 5)}");
@@ -57,7 +57,7 @@ class FeeCalFunctions {
     double baseFee = 2;
     num addedFee = 0;
     if (distance < 1000) {
-      return 0.0;
+      return baseFee;
     } else if (distance > 1000) {
       if ((distance - 1000) % 500 == 0) {
         addedFee = ((distance - 1000) ~/ 500);

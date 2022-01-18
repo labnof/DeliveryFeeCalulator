@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'form_field_validators.dart';
 import 'fee_calculation_functions.dart';
@@ -15,7 +16,7 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
   // Creates a global key that uniquely identifies the Form widget
   //used to validate the form.
   final _formKey = GlobalKey<FormState>();
-  double _deliveryFeeTotal = 0.0;
+  double _deliveryFeeTotal = 0.0; // Ephemeral state
 
   // the TextEditingControllers are use to access the TextFormField values
   final TextEditingController _catValueController = TextEditingController();
@@ -93,6 +94,7 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
             TextFormField(
               controller: _catValueController,
               validator: FfValidator.numTextValidator,
+              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 icon: Icon(Icons.shopping_cart),
                 hintText: 'Enter cart value in €',
@@ -101,6 +103,7 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
             ),
             TextFormField(
               controller: _deliveryDistanceController,
+              keyboardType: TextInputType.number,
               validator: FfValidator.numTextValidator,
               decoration: const InputDecoration(
                 icon: Icon(Icons.social_distance),
@@ -110,6 +113,10 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
             ),
             TextFormField(
               controller: _itemCountController,
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ],
               validator: FfValidator.itemTextValidator,
               decoration: const InputDecoration(
                 icon: Icon(Icons.fastfood),
