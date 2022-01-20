@@ -18,9 +18,9 @@ class FeeCalFunctions {
           distanceFee(distance) +
           itemsCountSurcharge(itemCount);
 
-      //Case 1.2: fridayRush && totalDeliveryFee < kMaxDeliveryFee
+      //Case 1.1: fridayRush
       bool fridayRush = isFridayRush(date, time);
-      if (fridayRush && totalDeliveryFee < kMaxDeliveryFee) {
+      if (fridayRush) {
         totalDeliveryFee = totalDeliveryFee * 1.1;
       }
     }

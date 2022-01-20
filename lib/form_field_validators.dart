@@ -38,7 +38,7 @@ class FfValidator {
 
   static String? dateTextValidator(value) {
     if (value == null || value.isEmpty || !isDateRegex(value)) {
-      return 'Please enter date e,g 2021-12-01';
+      return 'Please enter date e.g 2021-12-01';
     }
     return null;
   }
