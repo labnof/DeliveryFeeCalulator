@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+
+import 'fee_calculation_functions.dart' as fee_calculator;
 import 'form_field_validators.dart';
-import 'fee_calculation_functions.dart';
 
 // Contains mainly the form for the fee calculation.
 class DeliveryFeeForm extends StatefulWidget {
@@ -164,7 +165,7 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
                           String date = _dateController.text;
                           String time = _timeController.text;
                           double total;
-                          total = FeeCalFunctions.totalDeliveryFee(
+                          total = fee_calculator.totalDeliveryFee(
                               cartValue, distance, itemCount, date, time);
                           _deliveryFeeTotal = total;
                         });
