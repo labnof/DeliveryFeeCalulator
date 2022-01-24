@@ -64,7 +64,6 @@ double itemsCountSurcharge(int itemsCount) {
   const double kAdditionalCharge = 0.50;
   if (itemsCount > 4) {
     surcharge = (itemsCount - 4) * kAdditionalCharge;
-    return surcharge;
   }
   return surcharge;
 }
