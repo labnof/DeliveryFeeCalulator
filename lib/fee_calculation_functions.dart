@@ -6,13 +6,14 @@ double totalDeliveryFee(double cartValue, double distance, int itemCount,
     String date, String time) {
   double totalDeliveryFee = 0.0;
   const double kMaxDeliveryFee = 15.0;
+  const int kMinimumCartValueWithNoDeliveryFee = 100;
 
   // Case 0:  return 0 if the Cart Value 0 and there is no item to deliver.
   if (cartValue == 0.0 && itemCount == 0.0) {
     return totalDeliveryFee;
   }
   // Case 1: Calculate for CartValue < 100 otherwise returns 0
-  if (cartValue < 100) {
+  if (cartValue < kMinimumCartValueWithNoDeliveryFee) {
     totalDeliveryFee = cartValueSurcharge(cartValue) +
         distanceFee(distance) +
         itemsCountSurcharge(itemCount);
@@ -20,7 +21,8 @@ double totalDeliveryFee(double cartValue, double distance, int itemCount,
     //Case 1.1: fridayRush
     bool fridayRush = isFridayRush(date, time);
     if (fridayRush) {
-      totalDeliveryFee = totalDeliveryFee * 1.1;
+      const double kRushMultiplier = 1.1;
+      totalDeliveryFee = totalDeliveryFee * kRushMultiplier;
     }
   }
   return min(totalDeliveryFee, kMaxDeliveryFee);
@@ -40,8 +42,9 @@ bool isFridayRush(String date, String time) {
 
 // Function adds surcharge to cart value if necessary
 double cartValueSurcharge(double cartValue) {
-  if (cartValue < 10) {
-    return 10 - cartValue;
+  const int kMinimumCartValue = 10;
+  if (cartValue < kMinimumCartValue) {
+    return kMinimumCartValue - cartValue;
   }
   return 0.0;
 }
@@ -61,9 +64,11 @@ double distanceFee(double distance) {
 // Function calculates surcharge for food items over 4
 double itemsCountSurcharge(int itemsCount) {
   double surcharge = 0;
+  const int kMaxNumberOfItemsWithNoSurcharge = 4;
   const double kAdditionalCharge = 0.50;
-  if (itemsCount > 4) {
-    surcharge = (itemsCount - 4) * kAdditionalCharge;
+  if (itemsCount > kMaxNumberOfItemsWithNoSurcharge) {
+    surcharge =
+        (itemsCount - kMaxNumberOfItemsWithNoSurcharge) * kAdditionalCharge;
   }
   return surcharge;
 }
