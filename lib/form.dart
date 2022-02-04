@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 import 'fee_calculation_functions.dart' as fee_calculator;
-import 'form_field_validators.dart';
+import 'form_field_validators.dart' as fee_form_validators;
 
 // Contains mainly the form for the fee calculation.
 class DeliveryFeeForm extends StatefulWidget {
@@ -94,7 +94,7 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
           children: <Widget>[
             TextFormField(
               controller: _catValueController,
-              validator: FfValidator.numTextValidator,
+              validator: fee_form_validators.numTextValidator,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 icon: Icon(Icons.shopping_cart),
@@ -105,7 +105,7 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
             TextFormField(
               controller: _deliveryDistanceController,
               keyboardType: TextInputType.number,
-              validator: FfValidator.numTextValidator,
+              validator: fee_form_validators.numTextValidator,
               decoration: const InputDecoration(
                 icon: Icon(Icons.social_distance),
                 hintText: 'Enter delivery distance in meters',
@@ -118,7 +118,7 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
               ],
-              validator: FfValidator.itemTextValidator,
+              validator: fee_form_validators.itemTextValidator,
               decoration: const InputDecoration(
                 icon: Icon(Icons.fastfood),
                 hintText: 'Enter number of items',
@@ -128,7 +128,7 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
             TextFormField(
               onTap: () => _selectDate(context),
               controller: _dateController,
-              validator: FfValidator.dateTextValidator,
+              validator: fee_form_validators.dateTextValidator,
               decoration: const InputDecoration(
                 icon: Icon(Icons.calendar_today),
                 hintText: 'Enter date: year-month-day',
@@ -138,7 +138,7 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
             TextFormField(
               onTap: () => _selectTime(context),
               controller: _timeController,
-              validator: FfValidator.timeTextValidator,
+              validator: fee_form_validators.timeTextValidator,
               decoration: const InputDecoration(
                 icon: Icon(Icons.access_time),
                 hintText: 'Enter time. e.g: 17:30',
@@ -159,8 +159,8 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
                         setState(() {
                           double cartValue =
                               double.parse(_catValueController.text);
-                          double distance =
-                              double.parse(_deliveryDistanceController.text);
+                          int distance =
+                              int.parse(_deliveryDistanceController.text);
                           int itemCount = int.parse(_itemCountController.text);
                           String date = _dateController.text;
                           String time = _timeController.text;

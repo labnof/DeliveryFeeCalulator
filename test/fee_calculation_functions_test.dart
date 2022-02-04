@@ -1,4 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:wolt/constants.dart'
+    show kMaxDeliveryFee, kBaseFee, kAdditionalCharge;
 import 'package:wolt/fee_calculation_functions.dart' as fee_calculator;
 
 void main() {
@@ -9,10 +11,10 @@ void main() {
       expect(fee, 0);
     });
 
-    test('Maximum delivery fee is 15', () {
+    test('Checks that Maximum delivery fee is $kMaxDeliveryFee', () {
       num fee =
           fee_calculator.totalDeliveryFee(10, 1500, 5, '2021-10-15', '15.30');
-      bool result = fee <= 15;
+      bool result = fee <= kMaxDeliveryFee;
       expect(result, true);
     });
   });
@@ -33,9 +35,9 @@ void main() {
   });
 
   group('Distance fee function test', () {
-    test('distance less than 1000', () {
+    test('distance less than 1000 retuns base fee', () {
       num fee = fee_calculator.distanceFee(999);
-      expect(fee, 0);
+      expect(fee, kBaseFee);
     });
 
     test('Distance of 1000', () {
@@ -66,7 +68,7 @@ void main() {
 
     test('>=  5 items', () {
       num fee = fee_calculator.itemsCountSurcharge(5);
-      expect(fee, 0.50);
+      expect(fee, kAdditionalCharge);
     });
   });
 
