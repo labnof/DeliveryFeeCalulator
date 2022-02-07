@@ -3,6 +3,30 @@ import 'dart:math';
 
 import 'package:wolt/constants.dart';
 
+// Async Function calculates the total delivery cost
+Future<double> asyncTotalDeliveryFee(
+    double cartValue, int distance, int itemCount, String date, String time) {
+  double totalDeliveryFee = 0.0;
+  // Case 0:  return 0 if the Cart Value 0 and there is no item to deliver.
+  if (cartValue == 0 && itemCount == 0) {
+    return Future.value(totalDeliveryFee);
+    //return Future(()=> totalDeliveryFee);
+  }
+  // Case 1:
+  if (cartValue < kMinimumCartValueWithNoDeliveryFee) {
+    totalDeliveryFee = cartValueSurcharge(cartValue) +
+        distanceFee(distance) +
+        itemsCountSurcharge(itemCount);
+
+    //Case 1.1: fridayRush
+    bool fridayRush = isFridayRush(date, time);
+    if (fridayRush) {
+      totalDeliveryFee = totalDeliveryFee * kRushMultiplier;
+    }
+  }
+  return Future.value(min(totalDeliveryFee, kMaxDeliveryFee.toDouble()));
+}
+
 // Function calculates the total delivery cost
 double totalDeliveryFee(
     double cartValue, int distance, int itemCount, String date, String time) {

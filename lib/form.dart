@@ -27,6 +27,29 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
 
+  // Async Function to calculate and
+  Future<void> _asyncCalculateDeliveryFee() async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Calculating delivery fee...')),
+    );
+
+    // Validate will return true if the form is valid, or false if
+    // the form is invalid.
+    if (_formKey.currentState!.validate()) {
+      double cartValue = double.parse(_catValueController.text);
+      int distance = int.parse(_deliveryDistanceController.text);
+      int itemCount = int.parse(_itemCountController.text);
+      String date = _dateController.text;
+      String time = _timeController.text;
+      double total;
+      total = await fee_calculator.asyncTotalDeliveryFee(
+          cartValue, distance, itemCount, date, time);
+      setState(() {
+        _deliveryFeeTotal = total;
+      });
+    }
+  }
+
   //Date picker
   DateTime currentDate = DateTime.now();
 
@@ -85,12 +108,11 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(24.0),
       child: Form(
         key: _formKey,
         child: ListView(
           shrinkWrap: true,
-          padding: const EdgeInsets.all(15.0),
           children: <Widget>[
             TextFormField(
               controller: _catValueController,
@@ -145,36 +167,16 @@ class _DeliveryFeeFormState extends State<DeliveryFeeForm> {
                 labelText: 'Time',
               ),
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 52),
             Row(
               children: [
                 Expanded(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        textStyle: const TextStyle(fontSize: 16)),
-                    onPressed: () {
-                      // Validate will return true if the form is valid, or false if
-                      // the form is invalid.
-                      if (_formKey.currentState!.validate()) {
-                        setState(() {
-                          double cartValue =
-                              double.parse(_catValueController.text);
-                          int distance =
-                              int.parse(_deliveryDistanceController.text);
-                          int itemCount = int.parse(_itemCountController.text);
-                          String date = _dateController.text;
-                          String time = _timeController.text;
-                          double total;
-                          total = fee_calculator.totalDeliveryFee(
-                              cartValue, distance, itemCount, date, time);
-                          _deliveryFeeTotal = total;
-                        });
-
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Processing Data')),
-                        );
-                      }
-                    },
+                        textStyle: const TextStyle(fontSize: 20),
+                        minimumSize: const Size(298, 52),
+                        maximumSize: const Size(300, 52)),
+                    onPressed: _asyncCalculateDeliveryFee,
                     child: const Text('Calculate delivery price'),
                   ),
                 ),

@@ -35,7 +35,7 @@ void main() {
   });
 
   group('Distance fee function test', () {
-    test('distance less than 1000 retuns base fee', () {
+    test('distance less than 1000 returns base fee', () {
       num fee = fee_calculator.distanceFee(999);
       expect(fee, kBaseFee);
     });
